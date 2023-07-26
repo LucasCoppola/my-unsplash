@@ -34,14 +34,14 @@ const images = [
 
 export default function Home() {
 	return (
-		<div className="mx-10 mt-3">
+		<div className="mx-10 mt-4">
 			<Navbar />
 			<main className="mt-8 flex flex-col items-center justify-between p-6">
 				<div className="columns-auto gap-6 md:columns-3">
 					{images.map(({ src, id }) => (
 						<ImageComponent
 							key={id}
-							label="I'm the Label"
+							label="Lorem ipsum label"
 							src={src}
 							id={id}
 						/>

@@ -2,6 +2,7 @@
 'use client'
 
 import { useState } from 'react'
+import Trash from '../icons/trash'
 
 type ImageComponentProps = { label: string; src: string; id: number }
 
@@ -14,20 +15,27 @@ export default function ImageComponent({
 
 	return (
 		<div
-			className="group relative"
+			className="group relative transition duration-200"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			<img
 				key={id}
-				className="mb-6 rounded-2xl transition duration-200 ease-in-out hover:brightness-50"
+				className={`mb-6 rounded-2xl ease-in-out ${
+					isHovered ? 'brightness-50' : ''
+				}`}
 				src={src}
-				alt=""
+				alt={label}
 			/>
-			{label && isHovered && (
-				<span className="absolute bottom-2 left-2 text-white">
-					{label}
-				</span>
+			{isHovered && (
+				<>
+					<Trash className="absolute right-5 top-5 text-red-600" />
+					{label && (
+						<span className="absolute bottom-5 left-5 text-lg font-semibold text-white brightness-100">
+							{label}
+						</span>
+					)}
+				</>
 			)}
 		</div>
 	)

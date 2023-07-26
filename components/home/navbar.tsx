@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Search from '../icons/search'
 import MyUnsplashLogo from '../icons/my-unsplash-logo'
 
