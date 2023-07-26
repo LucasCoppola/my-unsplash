@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Search from '../shared/icons/search'
-import MyUnsplashLogo from '../shared/icons/my-unsplash-logo'
+import Search from '../icons/search'
+import MyUnsplashLogo from '../icons/my-unsplash-logo'
 
 export default function Navbar() {
 	return (
