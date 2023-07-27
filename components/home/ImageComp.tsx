@@ -15,7 +15,7 @@ export default function ImageComponent({
 
 	return (
 		<div
-			className="group relative transition duration-200"
+			className="group relative transition duration-200 ease-in-out hover:rotate-1 hover:scale-[1.03]"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
@@ -29,7 +29,7 @@ export default function ImageComponent({
 			/>
 			{isHovered && (
 				<>
-					<Trash className="absolute right-5 top-5 text-red-600" />
+					<Trash className="absolute right-5 top-5 cursor-pointer text-red-600" />
 					{label && (
 						<span className="absolute bottom-5 left-5 text-lg font-semibold text-white brightness-100">
 							{label}
