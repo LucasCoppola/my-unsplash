@@ -1,7 +1,17 @@
+'use client'
+
 import Search from '../icons/search'
 import MyUnsplashLogo from '../icons/my-unsplash-logo'
+import Image from 'next/image'
+import { SignUpButton, SignInButton, useUser } from '@clerk/nextjs'
+import Button from './Button'
+import User from '../icons/user'
 
 export default function Navbar() {
+	const { isSignedIn, user } = useUser()
+	if (isSignedIn) {
+		console.log(user.imageUrl)
+	}
 	return (
 		<nav className="relative bg-white">
 			<div className="container mx-auto px-6 py-3">
@@ -25,10 +35,26 @@ export default function Navbar() {
 							</div>
 						</div>
 					</div>
-
-					<button className="rounded-xl bg-[#3DB46D] px-4 py-3 font-semibold text-white shadow-md">
-						Add a photo
-					</button>
+					<div className="flex">
+						<Button className="bg-[#3DB46D] text-white">
+							Add a photo
+						</Button>
+						{isSignedIn ? (
+							<Image
+								src={user.imageUrl ?? <User />}
+								alt=""
+								width={50}
+								height={50}
+								className="ml-4 cursor-pointer rounded-full shadow-md duration-100 hover:-translate-y-0.5"
+							/>
+						) : (
+							<SignInButton>
+								<Button className="ml-4 cursor-pointer text-gray-800">
+									Sign In
+								</Button>
+							</SignInButton>
+						)}
+					</div>
 				</div>
 			</div>
 		</nav>
