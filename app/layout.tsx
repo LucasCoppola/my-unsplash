@@ -18,7 +18,9 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<html lang="en">
-				<body className={montserrat.className}>{children}</body>
+				<body className={montserrat.className}>
+					<div className="mx-10 mt-4">{children}</div>
+				</body>
 			</html>
 		</ClerkProvider>
 	)

@@ -34,7 +34,7 @@ const images = [
 
 export default function Home() {
 	return (
-		<div className="mx-10 mt-4">
+		<>
 			<Navbar />
 			<main className="mt-8 flex flex-col items-center justify-between p-6">
 				<div className="columns-auto gap-6 md:columns-3">
@@ -48,6 +48,6 @@ export default function Home() {
 					))}
 				</div>
 			</main>
-		</div>
+		</>
 	)
 }
