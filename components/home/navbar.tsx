@@ -13,12 +13,12 @@ import {
 	DialogHeader,
 	DialogTrigger
 } from '@/components/ui/dialog'
-import { signIn } from 'next-auth/react'
-import { Session } from 'next-auth'
+import { signIn, useSession, signOut } from 'next-auth/react'
 import UserDropdown from './User'
 
-export default function Navbar({ session }: { session: Session | null }) {
+export default function Navbar() {
 	const [signInClicked, setSignInClicked] = useState(false)
+	const { data: session } = useSession()
 
 	return (
 		<nav className="relative bg-white">
