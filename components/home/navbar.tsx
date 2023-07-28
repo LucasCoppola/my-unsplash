@@ -1,10 +1,26 @@
 'use client'
 
-import Search from '../icons/search'
-import MyUnsplashLogo from '../icons/my-unsplash-logo'
-import { SignInButton, SignedIn, UserButton, SignedOut } from '@clerk/nextjs'
+import { useState } from 'react'
+import {
+	Search,
+	MyUnsplashLogo,
+	LoadingCircle,
+	Google
+} from '@/components/icons'
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTrigger
+} from '@/components/ui/dialog'
+import { useSession, signIn, signOut } from 'next-auth/react'
+// import { Session } from 'next-auth'
+import UserDropdown from './User'
 
 export default function Navbar() {
+	const [signInClicked, setSignInClicked] = useState(false)
+	const { data: session } = useSession()
+
 	return (
 		<nav className="relative bg-white">
 			<div className="container mx-auto px-6 py-3">
@@ -29,27 +45,48 @@ export default function Navbar() {
 						</div>
 					</div>
 					<div className="ml-auto flex items-center">
-						<SignedIn>
-							<button className="mr-4 rounded-xl bg-[#3DB46D] px-4 py-2 font-semibold text-white shadow-md duration-300 hover:bg-[#249A4C]">
-								Add a photo
-							</button>
-							<UserButton
-								afterSignOutUrl="/"
-								appearance={{
-									elements: {
-										avatarBox: 'w-10 h-10 shadow-md'
-									}
-								}}
-							/>
-						</SignedIn>
+						<button className="mr-4 rounded-xl bg-[#3DB46D] px-4 py-2 font-semibold text-white shadow-md duration-300 hover:bg-[#249A4C]">
+							Add a photo
+						</button>
 
-						<SignedOut>
-							<SignInButton mode="modal">
-								<button className="rounded-xl bg-[#0a0a0a] px-4 py-1.5 font-sans font-semibold text-white shadow-md duration-300 hover:bg-white hover:text-black">
+						{session ? (
+							<UserDropdown session={session} />
+						) : (
+							<Dialog>
+								<DialogTrigger className="rounded-xl bg-[#0a0a0a] px-4 py-1.5 font-sans font-semibold text-white shadow-md duration-300 hover:bg-white hover:text-black">
 									Log In
-								</button>
-							</SignInButton>
-						</SignedOut>
+								</DialogTrigger>
+								<DialogContent>
+									<DialogHeader>
+										<div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
+											<button
+												disabled={signInClicked}
+												className={`${
+													signInClicked
+														? 'cursor-not-allowed border-gray-200 bg-gray-100'
+														: 'border border-gray-200 bg-white text-black hover:bg-gray-50'
+												} flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
+												onClick={() => {
+													setSignInClicked(true)
+													signIn('google')
+												}}
+											>
+												{signInClicked ? (
+													<LoadingCircle />
+												) : (
+													<>
+														<Google className="h-5 w-5" />
+														<p>
+															Sign In with Google
+														</p>
+													</>
+												)}
+											</button>
+										</div>
+									</DialogHeader>
+								</DialogContent>
+							</Dialog>
+						)}
 					</div>
 				</div>
 			</div>

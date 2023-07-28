@@ -1,7 +1,9 @@
+'use client'
+
 import './globals.css'
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
+import { SessionProvider } from 'next-auth/react'
 
 const montserrat = Montserrat({ weight: ['400'], subsets: ['latin'] })
 
@@ -16,12 +18,12 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<ClerkProvider>
-			<html lang="en">
-				<body className={montserrat.className}>
+		<html lang="en">
+			<body className={montserrat.className}>
+				<SessionProvider>
 					<div className="mx-10 mt-4">{children}</div>
-				</body>
-			</html>
-		</ClerkProvider>
+				</SessionProvider>
+			</body>
+		</html>
 	)
 }

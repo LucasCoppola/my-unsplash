@@ -1,5 +1,5 @@
-import ImageComponent from '@/components/home/ImageComp'
 import Navbar from '@/components/home/Navbar'
+import ImageComponent from '@/components/ui/ImageComp'
 
 const images = [
 	{
