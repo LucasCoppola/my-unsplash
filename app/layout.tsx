@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import Provider from '@/components/home/Provider'
-import Navbar from '@/components/home/navbar'
+import Nav from '@/components/home/nav'
 
 const montserrat = Montserrat({ weight: ['400'], subsets: ['latin'] })
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 			<body className={montserrat.className}>
 				<Provider>
 					<div className="mx-10 mt-4">
-						<Navbar />
+						<Nav />
 						{children}
 					</div>
 				</Provider>
