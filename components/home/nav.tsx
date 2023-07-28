@@ -1,8 +1,7 @@
-import { authOptions } from '@/utils/authOptions'
-import Navbar from './navbar'
-import { getServerSession } from 'next-auth/next'
+import { useSession } from "next-auth/react"
+import Navbar from "./navbar"
 
-export default async function Nav() {
-	const session = await getServerSession(authOptions)
+export default function Nav() {
+	const { data: session } = useSession()
 	return <Navbar session={session} />
 }
