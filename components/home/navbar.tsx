@@ -1,23 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import {
-	Search,
-	MyUnsplashLogo,
-	LoadingCircle,
-	Google
-} from '@/components/icons'
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTrigger
-} from '@/components/ui/dialog'
-import { signIn, useSession, signOut } from 'next-auth/react'
-import UserDropdown from './User'
+import { Search, MyUnsplashLogo } from '@/components/icons'
+import { useSession } from 'next-auth/react'
+import UserDropdown from './user-dropdown'
+import SignInModal from '../ui/sign-in-modal'
 
 export default function Navbar() {
-	const [signInClicked, setSignInClicked] = useState(false)
 	const { data: session } = useSession()
 
 	return (
@@ -51,40 +39,7 @@ export default function Navbar() {
 						{session ? (
 							<UserDropdown session={session} />
 						) : (
-							<Dialog>
-								<DialogTrigger className="rounded-xl bg-[#0a0a0a] px-4 py-1.5 font-sans font-semibold text-white shadow-md duration-300 hover:bg-white hover:text-black">
-									Log In
-								</DialogTrigger>
-								<DialogContent>
-									<DialogHeader>
-										<div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-											<button
-												disabled={signInClicked}
-												className={`${
-													signInClicked
-														? 'cursor-not-allowed border-gray-200 bg-gray-100'
-														: 'border border-gray-200 bg-white text-black hover:bg-gray-50'
-												} flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
-												onClick={() => {
-													setSignInClicked(true)
-													signIn('google')
-												}}
-											>
-												{signInClicked ? (
-													<LoadingCircle />
-												) : (
-													<>
-														<Google className="h-5 w-5" />
-														<p>
-															Sign In with Google
-														</p>
-													</>
-												)}
-											</button>
-										</div>
-									</DialogHeader>
-								</DialogContent>
-							</Dialog>
+							<SignInModal />
 						)}
 					</div>
 				</div>
