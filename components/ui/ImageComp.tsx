@@ -2,7 +2,7 @@
 'use client'
 
 import { useState } from 'react'
-import Trash from '../icons/trash'
+import Trash from './icons/trash'
 
 type ImageComponentProps = { label: string; src: string; id: number }
 
@@ -15,7 +15,7 @@ export default function ImageComponent({
 
 	return (
 		<div
-			className="group relative transition duration-200 ease-in-out hover:rotate-1 hover:scale-[1.03]"
+			className="group relative transition duration-200 ease-in-out"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>

@@ -1,6 +1,8 @@
+'use client'
+
+import { Google, LoadingCircle } from '@/components/ui/icons'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
-import { Google, LoadingCircle } from '../icons'
 import { Dialog, DialogContent, DialogTrigger } from './dialog'
 
 export default function SignInModal() {
@@ -8,8 +10,8 @@ export default function SignInModal() {
 
 	return (
 		<Dialog>
-			<DialogTrigger className="rounded-xl bg-[#0a0a0a] px-4 py-1.5 font-sans font-semibold text-white shadow-md duration-300 hover:bg-white hover:text-black">
-				Sign In
+			<DialogTrigger className="inline-flex  h-9 items-center justify-center rounded-xl  bg-primary px-4 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+				Sign in
 			</DialogTrigger>
 			<DialogContent>
 				<div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
