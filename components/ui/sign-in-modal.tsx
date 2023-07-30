@@ -1,6 +1,6 @@
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
-import { Google, LoadingCircle } from '../icons'
+import { Google, LoadingCircle } from './icons'
 import { Dialog, DialogContent, DialogTrigger } from './dialog'
 
 export default function SignInModal() {
