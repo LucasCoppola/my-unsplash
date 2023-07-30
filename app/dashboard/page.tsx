@@ -1,4 +1,8 @@
+'use client'
+
 import ImageComponent from '@/components/ui/ImageComp'
+import { useSignInModal } from '@/components/ui/sign-in-modal'
+import { useSession } from 'next-auth/react'
 
 const images = [
 	{
@@ -32,6 +36,8 @@ const images = [
 ]
 
 export default function Dashboard() {
+	useSession({ required: true })
+
 	return (
 		<main className="mt-8 flex flex-col items-center justify-between p-6">
 			<div className="columns-auto gap-6 md:columns-3">
