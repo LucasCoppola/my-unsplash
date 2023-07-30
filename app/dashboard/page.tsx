@@ -1,7 +1,6 @@
 'use client'
 
 import ImageComponent from '@/components/ui/ImageComp'
-import { useSignInModal } from '@/components/ui/sign-in-modal'
 import { useSession } from 'next-auth/react'
 
 const images = [

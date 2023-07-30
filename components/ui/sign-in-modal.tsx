@@ -2,20 +2,17 @@
 
 import { Google, LoadingCircle } from '@/components/ui/icons'
 import { signIn } from 'next-auth/react'
-import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from './dialog'
 
-export default function SignInModal({
-	showSignInModal,
-	setShowSignInModal
-}: {
-	showSignInModal: boolean
-	setShowSignInModal: Dispatch<SetStateAction<boolean>>
-}) {
+export default function SignInModal() {
 	const [signInClicked, setSignInClicked] = useState(false)
 
 	return (
-		<Dialog open={showSignInModal}>
+		<Dialog>
+			<DialogTrigger className="inline-flex  h-9 items-center justify-center rounded-xl  bg-primary px-4 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+				Sign in
+			</DialogTrigger>
 			<DialogContent>
 				<div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
 					<h3 className="font-display text-2xl font-bold">Sign In</h3>
@@ -50,23 +47,5 @@ export default function SignInModal({
 				</div>
 			</DialogContent>
 		</Dialog>
-	)
-}
-
-export function useSignInModal() {
-	const [showSignInModal, setShowSignInModal] = useState(false)
-
-	const SignInModalCallback = useCallback(() => {
-		return (
-			<SignInModal
-				showSignInModal={showSignInModal}
-				setShowSignInModal={setShowSignInModal}
-			/>
-		)
-	}, [showSignInModal, setShowSignInModal])
-
-	return useMemo(
-		() => ({ setShowSignInModal, SignInModal: SignInModalCallback }),
-		[setShowSignInModal, SignInModalCallback]
 	)
 }
