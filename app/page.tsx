@@ -1,5 +1,4 @@
-import ImageComponent from '@/components/home/ImageComp'
-import Navbar from '@/components/home/Navbar'
+import ImageComponent from '@/components/ui/ImageComp'
 
 const images = [
 	{
@@ -34,20 +33,17 @@ const images = [
 
 export default function Home() {
 	return (
-		<>
-			<Navbar />
-			<main className="mt-8 flex flex-col items-center justify-between p-6">
-				<div className="columns-auto gap-6 md:columns-3">
-					{images.map(({ src, id }) => (
-						<ImageComponent
-							key={id}
-							label="Lorem ipsum label"
-							src={src}
-							id={id}
-						/>
-					))}
-				</div>
-			</main>
-		</>
+		<main className="mt-8 flex flex-col items-center justify-between p-6">
+			<div className="columns-auto gap-6 md:columns-3">
+				{images.map(({ src, id }) => (
+					<ImageComponent
+						key={id}
+						label="Lorem ipsum label"
+						src={src}
+						id={id}
+					/>
+				))}
+			</div>
+		</main>
 	)
 }

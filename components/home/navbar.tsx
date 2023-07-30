@@ -1,10 +1,13 @@
 'use client'
 
-import Search from '../icons/search'
-import MyUnsplashLogo from '../icons/my-unsplash-logo'
-import { SignInButton, SignedIn, UserButton, SignedOut } from '@clerk/nextjs'
+import { Search, MyUnsplashLogo } from '@/components/icons'
+import { useSession } from 'next-auth/react'
+import UserDropdown from './user-dropdown'
+import SignInModal from '../ui/sign-in-modal'
 
 export default function Navbar() {
+	const { data: session } = useSession()
+
 	return (
 		<nav className="relative bg-white">
 			<div className="container mx-auto px-6 py-3">
@@ -29,27 +32,15 @@ export default function Navbar() {
 						</div>
 					</div>
 					<div className="ml-auto flex items-center">
-						<SignedIn>
-							<button className="mr-4 rounded-xl bg-[#3DB46D] px-4 py-2 font-semibold text-white shadow-md duration-300 hover:bg-[#249A4C]">
-								Add a photo
-							</button>
-							<UserButton
-								afterSignOutUrl="/"
-								appearance={{
-									elements: {
-										avatarBox: 'w-10 h-10 shadow-md'
-									}
-								}}
-							/>
-						</SignedIn>
+						<button className="mr-4 rounded-xl bg-[#3DB46D] px-4 py-2 font-semibold text-white shadow-md duration-300 hover:bg-[#249A4C]">
+							Add a photo
+						</button>
 
-						<SignedOut>
-							<SignInButton mode="modal">
-								<button className="rounded-xl bg-[#0a0a0a] px-4 py-1.5 font-sans font-semibold text-white shadow-md duration-300 hover:bg-white hover:text-black">
-									Log In
-								</button>
-							</SignInButton>
-						</SignedOut>
+						{session ? (
+							<UserDropdown session={session} />
+						) : (
+							<SignInModal />
+						)}
 					</div>
 				</div>
 			</div>
