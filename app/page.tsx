@@ -1,49 +1,52 @@
-import ImageComponent from '@/components/ui/ImageComp'
-
-const images = [
-	{
-		id: 1,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1689975352/Store/zygsbm2ra0w6cf7tyy9d.jpg'
-	},
-	{
-		id: 2,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1689953788/sample.jpg'
-	},
-	{
-		id: 3,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1688737914/powerlifting_x8zwhg.jpg'
-	},
-	{
-		id: 4,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1688737804/001-Rogue-Fitness-Calisthenics-Parallettes-004-opt_prexfz.jpg'
-	},
-	{
-		id: 5,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1688737328/bg-image_n18nut.jpg'
-	},
-	{
-		id: 6,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1676568161/YelpCamp/nv2gaq8uilqxg17tp6lr.jpg'
-	},
-	{
-		id: 7,
-		src: 'https://res.cloudinary.com/dotpfjpno/image/upload/v1675862370/YelpCamp/cblohpx9wtwgnd5gzets.jpg'
-	}
-]
-
 export default function Home() {
 	return (
-		<main className="mt-8 flex flex-col items-center justify-between p-6">
-			<div className="columns-auto gap-6 md:columns-3">
-				{images.map(({ src, id }) => (
-					<ImageComponent
-						key={id}
-						label="Lorem ipsum label"
-						src={src}
-						id={id}
+		<div className="mx-auto max-w-7xl pt-16 sm:px-6 lg:px-8">
+			<div className="relative isolate overflow-hidden bg-white">
+				<svg
+					viewBox="0 0 1024 1024"
+					className="absolute left-0 top-0 -z-10 h-full w-full [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+					aria-hidden="true"
+				>
+					<circle
+						cx={512}
+						cy={512}
+						r={512}
+						fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+						fillOpacity="0.7"
 					/>
-				))}
+					<defs>
+						<radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+							<stop stopColor="#7775D6" />
+							<stop offset={1} stopColor="#E935C1" />
+						</radialGradient>
+					</defs>
+				</svg>
+				<div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:pb-32 lg:pt-16 lg:text-left">
+					<h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+						Boost your productivity.
+						<br />
+						Start using our app today.
+					</h2>
+					<p className="mt-6 text-lg leading-8 text-gray-700">
+						Ac euismod vel sit maecenas id pellentesque eu sed
+						consectetur. Malesuada adipiscing sagittis vel nulla.
+					</p>
+					<div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+						<a
+							href="#"
+							className="rounded-md bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+						>
+							Get started
+						</a>
+						<a
+							href="#"
+							className="text-sm font-semibold leading-6 text-gray-900"
+						>
+							Learn more <span aria-hidden="true">→</span>
+						</a>
+					</div>
+				</div>
 			</div>
-		</main>
+		</div>
 	)
 }

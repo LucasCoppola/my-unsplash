@@ -1,9 +1,10 @@
 'use client'
 
-import { Search, MyUnsplashLogo } from '@/components/icons'
+import { Search, MyUnsplashLogo } from '@/components/ui/icons'
 import { useSession } from 'next-auth/react'
-import UserDropdown from './user-dropdown'
+import UserDropdown from '../ui/user-dropdown'
 import SignInModal from '../ui/sign-in-modal'
+import Link from 'next/link'
 
 export default function Navbar() {
 	const { data: session } = useSession()
@@ -14,9 +15,9 @@ export default function Navbar() {
 				<div className="flex w-full flex-col md:flex-row md:items-center">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center">
-							<a href="#">
+							<Link href="/">
 								<MyUnsplashLogo />
-							</a>
+							</Link>
 							<div className="mx-5">
 								<div className="relative">
 									<span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -29,6 +30,7 @@ export default function Navbar() {
 									/>
 								</div>
 							</div>
+							<Link href="/dashboard">Dashboard</Link>
 						</div>
 					</div>
 					<div className="ml-auto flex items-center">
