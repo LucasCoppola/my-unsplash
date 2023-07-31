@@ -21,7 +21,7 @@ export default function Navbar() {
 							<Link href="/">
 								<MyUnsplashLogo />
 							</Link>
-							{session && (
+							{pathname === '/dashboard' && (
 								<div className="mx-5">
 									<div className="relative">
 										<span className="absolute inset-y-0 left-0 flex items-center pl-3">
