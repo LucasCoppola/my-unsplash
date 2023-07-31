@@ -1,7 +1,12 @@
 import { Button } from '@/components/ui/button'
+import SignInModal from '@/components/ui/sign-in-modal'
+import { authOptions } from '@/utils/authOptions'
+import { getServerSession } from 'next-auth/next'
 import Link from 'next/link'
 
-export default function Home() {
+export default async function Home() {
+	const session = await getServerSession(authOptions)
+
 	return (
 		<>
 			<div className="relative isolate px-6 lg:px-8">
@@ -29,14 +34,23 @@ export default function Home() {
 							Organize, and Share Your Photos with Ease!
 						</p>
 						<div className="mt-10 flex items-center justify-center gap-x-6">
-							<Link href="/dashboard">
-								<Button
-									className="rounded-xl text-lg"
-									size={'lg'}
-								>
-									Get started
-								</Button>
-							</Link>
+							{session ? (
+								<Link href="/dashboard">
+									<Button
+										size="lg"
+										className="rounded-xl text-lg"
+										aria-controls="unique-control-id"
+									>
+										Get Started
+									</Button>
+								</Link>
+							) : (
+								<SignInModal
+									text="Get Started"
+									size="lg"
+									className="text-lg"
+								/>
+							)}
 						</div>
 					</div>
 				</div>

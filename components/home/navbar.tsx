@@ -1,12 +1,13 @@
 'use client'
 
 import { Search, MyUnsplashLogo, Camera } from '@/components/ui/icons'
-import { useSession } from 'next-auth/react'
 import UserDropdown from '../ui/user-dropdown'
 import Link from 'next/link'
-import SignInModal from '../ui/sign-in-modal'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
+import SignInModal from '../ui/sign-in-modal'
+import { useSession } from 'next-auth/react'
+import { AddImage } from '../ui/addImage'
 
 export default function Navbar() {
 	const { data: session } = useSession()
@@ -40,10 +41,7 @@ export default function Navbar() {
 					{session ? (
 						<div className="ml-auto flex items-center">
 							{pathname === '/dashboard' ? (
-								<Button className="mr-4 rounded-xl">
-									<Camera className="mr-2 h-5 w-5" />
-									Add photo
-								</Button>
+								<AddImage />
 							) : (
 								<Link href="/dashboard">
 									<Button className="mr-6 rounded-xl">
@@ -55,8 +53,7 @@ export default function Navbar() {
 						</div>
 					) : (
 						<div className="ml-auto flex items-center">
-							{' '}
-							<SignInModal />
+							<SignInModal text="Sign in" />
 						</div>
 					)}
 				</div>
