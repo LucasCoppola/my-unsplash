@@ -1,8 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useState } from 'react'
 import Trash from './icons/trash'
+import Image from 'next/image'
 
 type ImageComponentProps = { label: string; src: string; id: number }
 
@@ -19,12 +19,14 @@ export default function ImageComponent({
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
-			<img
+			<Image
 				key={id}
 				className={`mb-6 rounded-2xl ease-in-out ${
 					isHovered ? 'brightness-50' : ''
 				}`}
 				src={src}
+				width={400}
+				height={400}
 				alt={label}
 			/>
 			{isHovered && (
