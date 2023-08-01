@@ -4,8 +4,19 @@ import Image from 'next/image'
 import { Dialog, DialogFooter } from './dialog'
 import { Button } from './button'
 
+type statusTypes = {
+	loading: boolean
+	error: boolean
+	success: boolean
+}
+
 export function FileUpload() {
 	const [file, setFile] = useState<File | null>(null)
+	const [status, setStatus] = useState<statusTypes>({
+		loading: false,
+		error: false,
+		success: false
+	})
 
 	const onDrop = useCallback((files: File[]) => {
 		setFile(files[0])
@@ -19,17 +30,13 @@ export function FileUpload() {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		setStatus({ ...status, loading: true })
 
 		if (!file) return
 
 		const formData = new FormData()
 		formData.append('file', file)
-
-		if (!process.env.NEXT_CLOUDINARY_PRESET) {
-			console.error('Cloudinary preset is not defined.')
-			return
-		}
-		formData.append('upload_preset', process.env.NEXT_CLOUDINARY_PRESET)
+		formData.append('upload_preset', 'my-unsplash')
 
 		const URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL
 		if (!URL) {
@@ -41,8 +48,38 @@ export function FileUpload() {
 			body: formData
 		}).then((res) => res.json())
 
-		console.log(data)
+		setStatus({ ...status, loading: false })
+
+		if (data.error) {
+			setStatus({ ...status, error: true })
+			return
+		}
+
+		if (data) {
+			console.log(data)
+			setStatus({ ...status, success: true })
+		}
 	}
+
+	// useEffect(() => {
+	// 	const button = document.getElementById('status-button')
+	// 	if (button) {
+	// 		button.className = `${
+	// 			status.loading
+	// 				? 'opacity-50'
+	// 				: status.error
+	// 				? 'bg-red-500'
+	// 				: status.success
+	// 				? 'bg-green-500'
+	// 				: ''
+	// 		}`
+	// 	}
+	// 	// return () => {
+	// 	// 	if (button) {
+	// 	// 		button.className = ''
+	// 	// 	}
+	// 	// }
+	// }, [status])
 
 	// Revoke object URL when the component unmounts to avoid memory leaks
 	useEffect(() => {
@@ -65,6 +102,7 @@ export function FileUpload() {
 				<input
 					id="label"
 					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
+					autoComplete="off"
 					required
 				/>
 			</div>
@@ -86,7 +124,28 @@ export function FileUpload() {
 			</div>
 			<Dialog>
 				<DialogFooter className="flex-row">
-					<Button type="submit">Add</Button>
+					<Button
+						type="submit"
+						disabled={
+							status.loading || status.error || status.success
+						}
+						style={{
+							opacity: status.loading ? 0.5 : 1,
+							backgroundColor: status.error
+								? '#ef4444'
+								: status.success
+								? '#22c55e'
+								: undefined
+						}}
+					>
+						{status.loading
+							? 'Loading...'
+							: status.error
+							? 'Failed!'
+							: status.success
+							? 'Done!'
+							: 'Add'}
+					</Button>
 				</DialogFooter>
 			</Dialog>
 		</form>
