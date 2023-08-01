@@ -2,13 +2,11 @@ import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogFooter,
-	DialogHeader,
-	DialogTitle,
 	DialogTrigger
 } from '@/components/ui/dialog'
 import { Camera } from './icons'
+import { FileUpload } from './FileUpload'
 
 export function AddImage() {
 	return (
@@ -19,15 +17,8 @@ export function AddImage() {
 					Add Image
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="p-4 sm:max-w-[425px]">
-				<DialogHeader>
-					<DialogTitle>Add Image</DialogTitle>
-				</DialogHeader>
-
-				<DialogFooter className="flex-row">
-					<Button>Cancel</Button>
-					<Button type="submit">Add</Button>
-				</DialogFooter>
+			<DialogContent className="sm:max-w-[425px]">
+				<FileUpload />
 			</DialogContent>
 		</Dialog>
 	)
