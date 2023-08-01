@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import Image from 'next/image'
 import { Dialog, DialogFooter } from './dialog'
 import { Button } from './button'
+import { postImageAction } from '@/app/_actions'
 
 type statusTypes = {
 	loading: boolean
@@ -12,6 +13,7 @@ type statusTypes = {
 
 export function FileUpload() {
 	const [file, setFile] = useState<File | null>(null)
+	const [label, setLabel] = useState('')
 	const [status, setStatus] = useState<statusTypes>({
 		loading: false,
 		error: false,
@@ -56,30 +58,16 @@ export function FileUpload() {
 		}
 
 		if (data) {
-			console.log(data)
 			setStatus({ ...status, success: true })
 		}
-	}
 
-	// useEffect(() => {
-	// 	const button = document.getElementById('status-button')
-	// 	if (button) {
-	// 		button.className = `${
-	// 			status.loading
-	// 				? 'opacity-50'
-	// 				: status.error
-	// 				? 'bg-red-500'
-	// 				: status.success
-	// 				? 'bg-green-500'
-	// 				: ''
-	// 		}`
-	// 	}
-	// 	// return () => {
-	// 	// 	if (button) {
-	// 	// 		button.className = ''
-	// 	// 	}
-	// 	// }
-	// }, [status])
+		await postImageAction({
+			label: label,
+			src: data.secure_url,
+			id: data.asset_id,
+			userId: 'clkrfp5ul0000ilo8603jzixd'
+		})
+	}
 
 	// Revoke object URL when the component unmounts to avoid memory leaks
 	useEffect(() => {
@@ -92,20 +80,23 @@ export function FileUpload() {
 
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4 p-4">
-			<div>
-				<label
-					htmlFor="label"
-					className="block pb-1 text-sm font-medium text-gray-900"
-				>
-					Label
-				</label>
-				<input
-					id="label"
-					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
-					autoComplete="off"
-					required
-				/>
-			</div>
+			<label
+				htmlFor="label"
+				className="block pb-1 text-sm font-medium text-gray-900"
+			>
+				Label
+			</label>
+			<input
+				id="label"
+				name="label"
+				value={label}
+				onChange={(e) => setLabel(e.target.value)}
+				maxLength={255}
+				className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
+				autoComplete="off"
+				required
+			/>
+
 			<div {...getRootProps()}>
 				{file ? (
 					<Image
@@ -152,7 +143,7 @@ export function FileUpload() {
 	)
 }
 
-export function Dropzone({ children }: { children?: React.ReactNode }) {
+export function Dropzone({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="flex w-full items-center justify-center">
 			<label

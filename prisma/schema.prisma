@@ -11,9 +11,7 @@ datasource db {
 }
 
 model Image {
-  id        String      @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String      @id @default(cuid())  
   src       String    @db.VarChar(512)
   label     String    @db.VarChar(255)
   userId    String
