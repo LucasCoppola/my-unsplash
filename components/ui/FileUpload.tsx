@@ -5,7 +5,6 @@ import { Dialog, DialogFooter } from './dialog'
 import { Button } from './button'
 import { postImageAction } from '@/app/_actions'
 import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
 
 type statusTypes = {
 	loading: boolean
@@ -13,7 +12,7 @@ type statusTypes = {
 	success: boolean
 }
 
-export function FileUpload() {
+export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 	const { data: session } = useSession()
 	const [file, setFile] = useState<File | null>(null)
 	const [label, setLabel] = useState('')
@@ -68,20 +67,9 @@ export function FileUpload() {
 			id: data.asset_id,
 			userId: session?.userId || ''
 		})
+
+		setOpen(false)
 	}
-
-	// Timeout doesn't work
-	useEffect(() => {
-		const redirectTimeout = setTimeout(() => {
-			if (status.success) {
-				redirect('/dashboard')
-			}
-		}, 2000)
-
-		return () => {
-			clearTimeout(redirectTimeout)
-		}
-	}, [status.success])
 
 	// Revoke object URL when the component unmounts to avoid memory leaks
 	useEffect(() => {
