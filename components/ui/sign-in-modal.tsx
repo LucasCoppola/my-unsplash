@@ -9,11 +9,11 @@ import { Button } from './button'
 export default function SignInModal({
 	text,
 	className,
-	size
+	btnSize
 }: {
 	text?: string
 	className?: string
-	size?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
+	btnSize?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
 }) {
 	const [signInClicked, setSignInClicked] = useState(false)
 
@@ -21,7 +21,7 @@ export default function SignInModal({
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button
-					size={size}
+					size={btnSize}
 					className={`rounded-xl ${className}`}
 					aria-controls="unique-control-id"
 				>

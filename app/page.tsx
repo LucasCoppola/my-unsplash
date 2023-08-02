@@ -47,7 +47,7 @@ export default async function Home() {
 							) : (
 								<SignInModal
 									text="Get Started"
-									size="lg"
+									btnSize="lg"
 									className="text-lg"
 								/>
 							)}
