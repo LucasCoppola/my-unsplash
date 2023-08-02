@@ -7,9 +7,13 @@ export type ImageType = {
 	userId: string
 }
 
-export async function getImages() {
+export async function getImages({ userId }: { userId: string }) {
 	try {
-		const images = await prisma.image.findMany()
+		const images = await prisma.image.findMany({
+			where: {
+				userId
+			}
+		})
 		return { images }
 	} catch (e) {
 		console.log(e)

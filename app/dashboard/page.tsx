@@ -5,8 +5,9 @@ import { redirect } from 'next/navigation'
 import { getImages } from '../server'
 
 export default async function Dashboard() {
-	const { images } = await getImages()
 	const session = await getServerSession(authOptions)
+	const userId = session?.userId || ''
+	const { images } = await getImages({ userId })
 	if (!session) {
 		redirect('/')
 	}

@@ -5,8 +5,7 @@ import prisma from '@/lib/prisma'
 
 declare module 'next-auth' {
 	interface Session {
-		userId: string // Replace 'string' with the appropriate data type for your user IDs
-		// Add any other custom session properties you may need
+		userId: string
 	}
 }
 
