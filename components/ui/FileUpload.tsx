@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { Dialog, DialogFooter } from './dialog'
 import { Button } from './button'
 import { postImageAction } from '@/app/_actions'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 type statusTypes = {
 	loading: boolean
@@ -12,6 +14,7 @@ type statusTypes = {
 }
 
 export function FileUpload() {
+	const { data: session } = useSession()
 	const [file, setFile] = useState<File | null>(null)
 	const [label, setLabel] = useState('')
 	const [status, setStatus] = useState<statusTypes>({
@@ -50,24 +53,35 @@ export function FileUpload() {
 			body: formData
 		}).then((res) => res.json())
 
-		setStatus({ ...status, loading: false })
-
 		if (data.error) {
-			setStatus({ ...status, error: true })
+			setStatus({ ...status, loading: false, error: true })
 			return
 		}
 
 		if (data) {
-			setStatus({ ...status, success: true })
+			setStatus({ ...status, loading: false, success: true })
 		}
 
 		await postImageAction({
 			label: label,
 			src: data.secure_url,
 			id: data.asset_id,
-			userId: 'clkrfp5ul0000ilo8603jzixd'
+			userId: session?.userId || ''
 		})
 	}
+
+	// Timeout doesn't work
+	useEffect(() => {
+		const redirectTimeout = setTimeout(() => {
+			if (status.success) {
+				redirect('/dashboard')
+			}
+		}, 2000)
+
+		return () => {
+			clearTimeout(redirectTimeout)
+		}
+	}, [status.success])
 
 	// Revoke object URL when the component unmounts to avoid memory leaks
 	useEffect(() => {
@@ -80,23 +94,24 @@ export function FileUpload() {
 
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4 p-4">
-			<label
-				htmlFor="label"
-				className="block pb-1 text-sm font-medium text-gray-900"
-			>
-				Label
-			</label>
-			<input
-				id="label"
-				name="label"
-				value={label}
-				onChange={(e) => setLabel(e.target.value)}
-				maxLength={255}
-				className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
-				autoComplete="off"
-				required
-			/>
-
+			<div>
+				<label
+					htmlFor="label"
+					className="block pb-1 text-sm font-medium text-gray-900"
+				>
+					Label
+				</label>
+				<input
+					id="label"
+					name="label"
+					value={label}
+					onChange={(e) => setLabel(e.target.value)}
+					maxLength={255}
+					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
+					autoComplete="off"
+					required
+				/>
+			</div>
 			<div {...getRootProps()}>
 				{file ? (
 					<Image
@@ -104,7 +119,7 @@ export function FileUpload() {
 						width={600}
 						height={200}
 						alt="Uploaded preview"
-						className="rounded-lg"
+						className="max-h-96 rounded-lg"
 						aria-label="uploaded-image"
 					/>
 				) : (
@@ -169,9 +184,6 @@ export function Dropzone({ children }: { children: React.ReactNode }) {
 					<p className="mb-2 text-sm text-gray-500">
 						<span className="font-semibold">Click to upload</span>{' '}
 						or drag and drop
-					</p>
-					<p className="text-xs text-gray-500">
-						SVG, PNG, JPG, or GIF (MAX. 800x400px)
 					</p>
 				</div>
 				{children}
