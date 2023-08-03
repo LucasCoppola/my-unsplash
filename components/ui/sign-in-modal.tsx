@@ -3,15 +3,30 @@
 import { Google, LoadingCircle } from '@/components/ui/icons'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from './dialog'
+import { Dialog, DialogContent, DialogTrigger } from './shadcn/dialog'
+import { Button } from './shadcn/button'
 
-export default function SignInModal() {
+export default function SignInModal({
+	text,
+	className,
+	btnSize
+}: {
+	text?: string
+	className?: string
+	btnSize?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
+}) {
 	const [signInClicked, setSignInClicked] = useState(false)
 
 	return (
 		<Dialog>
-			<DialogTrigger className="inline-flex  h-9 items-center justify-center rounded-xl  bg-primary px-4 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
-				Sign in
+			<DialogTrigger asChild>
+				<Button
+					size={btnSize}
+					className={`rounded-xl ${className}`}
+					aria-controls="unique-control-id"
+				>
+					{text}
+				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">

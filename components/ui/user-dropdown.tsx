@@ -5,7 +5,7 @@ import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger
-} from '@/components/ui/popover'
+} from '@/components/ui/shadcn/popover'
 
 import Image from 'next/image'
 import { Session } from 'next-auth'
