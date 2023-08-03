@@ -29,7 +29,8 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop,
 		multiple: false,
-		accept: { 'image/*': [] }
+		accept: { 'image/*': [] },
+		maxSize: 10000000
 	})
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

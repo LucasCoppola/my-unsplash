@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Trash } from 'lucide-react'
 import Image from 'next/image'
 import { deleteImageAction } from '@/app/_actions'
+import { deleteImageFromCloudinary } from '@/app/removeImage'
 
 type ImageComponentProps = { label: string; src: string; id: string }
 
@@ -19,6 +20,7 @@ export default function ImageComponent({
 			className="group relative transition duration-200 ease-in-out"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
+			onClick={() => deleteImageFromCloudinary(src)}
 		>
 			<Image
 				key={id}
@@ -33,7 +35,7 @@ export default function ImageComponent({
 			{isHovered && (
 				<>
 					<Trash
-						onClick={() => deleteImageAction(id)}
+						onClick={() => deleteImageAction(id, src)}
 						className="absolute right-5 top-5 cursor-pointer text-red-600"
 					/>
 					{label && (
