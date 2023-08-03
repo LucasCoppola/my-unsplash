@@ -1,5 +1,9 @@
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/shadcn/button'
+import {
+	Dialog,
+	DialogContent,
+	DialogTrigger
+} from '@/components/ui/shadcn/dialog'
 import { Camera } from './icons'
 import { FileUpload } from './FileUpload'
 import { useState } from 'react'

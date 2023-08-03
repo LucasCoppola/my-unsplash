@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import Image from 'next/image'
-import { Dialog, DialogFooter } from './dialog'
-import { Button } from './button'
+import { Dialog, DialogFooter } from './shadcn/dialog'
+import { Button } from './shadcn/button'
 import { postImageAction } from '@/app/_actions'
 import { useSession } from 'next-auth/react'
 

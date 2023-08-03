@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/shadcn/button'
 import SignInModal from '@/components/ui/sign-in-modal'
 import { authOptions } from '@/utils/authOptions'
 import { getServerSession } from 'next-auth/next'

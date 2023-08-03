@@ -3,8 +3,8 @@
 import { Google, LoadingCircle } from '@/components/ui/icons'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from './dialog'
-import { Button } from './button'
+import { Dialog, DialogContent, DialogTrigger } from './shadcn/dialog'
+import { Button } from './shadcn/button'
 
 export default function SignInModal({
 	text,
