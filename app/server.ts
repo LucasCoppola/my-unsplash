@@ -16,7 +16,7 @@ export async function getImages({ userId }: { userId: string }) {
 		})
 		return { images }
 	} catch (e) {
-		console.log(e)
+		console.error(e)
 		return { e }
 	}
 }
@@ -32,7 +32,20 @@ export async function postImage({ src, label, userId }: ImageType) {
 		})
 		return { image }
 	} catch (e) {
-		console.log(e)
+		console.error(e)
+		return { e }
+	}
+}
+
+export async function deleteImage({ id }: { id: string }) {
+	try {
+		await prisma.image.delete({
+			where: {
+				id
+			}
+		})
+	} catch (e) {
+		console.error(e)
 		return { e }
 	}
 }

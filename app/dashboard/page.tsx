@@ -16,12 +16,7 @@ export default async function Dashboard() {
 		<main className="mt-8 flex flex-col items-center justify-between p-6">
 			<div className="columns-auto gap-6 md:columns-3">
 				{images?.map(({ src, id, label }) => (
-					<ImageComponent
-						key={id}
-						src={src}
-						label={label}
-						id={Number(id)}
-					/>
+					<ImageComponent key={id} src={src} label={label} id={id} />
 				))}
 			</div>
 		</main>

@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import Trash from './icons/trash'
+import { Trash } from 'lucide-react'
 import Image from 'next/image'
+import { deleteImageAction } from '@/app/_actions'
 
-type ImageComponentProps = { label: string; src: string; id: number }
+type ImageComponentProps = { label: string; src: string; id: string }
 
 export default function ImageComponent({
 	label,
@@ -31,7 +32,10 @@ export default function ImageComponent({
 			/>
 			{isHovered && (
 				<>
-					<Trash className="absolute right-5 top-5 cursor-pointer text-red-600" />
+					<Trash
+						onClick={() => deleteImageAction(id)}
+						className="absolute right-5 top-5 cursor-pointer text-red-600"
+					/>
 					{label && (
 						<span className="absolute bottom-5 left-5 text-lg font-semibold text-white brightness-100">
 							{label}
