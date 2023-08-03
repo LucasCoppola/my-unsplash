@@ -4,6 +4,17 @@ import { useState } from 'react'
 import { Trash } from 'lucide-react'
 import Image from 'next/image'
 import { deleteImageAction } from '@/app/_actions'
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger
+} from '@/components/ui/shadcn/alert-dialog'
 
 type ImageComponentProps = { label: string; src: string; id: string }
 
@@ -16,7 +27,7 @@ export default function ImageComponent({
 
 	return (
 		<div
-			className="group relative transition duration-200 ease-in-out"
+			className="group relative transition duration-200"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
@@ -32,12 +43,34 @@ export default function ImageComponent({
 			/>
 			{isHovered && (
 				<>
-					<Trash
-						onClick={() => deleteImageAction(id, src)}
-						className="absolute right-5 top-5 cursor-pointer text-red-600"
-					/>
+					<AlertDialog>
+						<AlertDialogTrigger className="absolute right-5 top-5 cursor-pointer text-red-600">
+							<Trash />
+						</AlertDialogTrigger>
+						<AlertDialogContent>
+							<AlertDialogHeader>
+								<AlertDialogTitle>
+									Are you absolutely sure?
+								</AlertDialogTitle>
+								<AlertDialogDescription>
+									This action cannot be undone. This will
+									permanently delete your account and remove
+									your data from our servers.
+								</AlertDialogDescription>
+							</AlertDialogHeader>
+							<AlertDialogFooter>
+								<AlertDialogCancel>Cancel</AlertDialogCancel>
+								<AlertDialogAction
+									className="bg-red-200 font-semibold text-red-600 hover:bg-red-300"
+									onClick={() => deleteImageAction(id, src)}
+								>
+									Yes
+								</AlertDialogAction>
+							</AlertDialogFooter>
+						</AlertDialogContent>
+					</AlertDialog>
 					{label && (
-						<span className="absolute bottom-5 left-5 text-lg font-semibold text-white brightness-100">
+						<span className="absolute bottom-3 left-3 text-base font-semibold text-white brightness-100">
 							{label}
 						</span>
 					)}

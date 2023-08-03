@@ -30,8 +30,8 @@ export default function Navbar() {
 										</span>
 										<input
 											type="text"
-											className="w-full rounded-xl border bg-white py-2.5 pl-10 pr-4 text-gray-700"
-											placeholder="Search by name"
+											className="w-full rounded-xl border bg-white py-2.5 pl-10 pr-4 text-gray-700 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
+											placeholder="Search"
 										/>
 									</div>
 								</div>

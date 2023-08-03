@@ -36,7 +36,6 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		setStatus({ ...status, loading: true })
-
 		if (!file) return
 
 		const formData = new FormData()
@@ -68,7 +67,6 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 			id: data.asset_id,
 			userId: session?.userId || ''
 		})
-
 		setOpen(false)
 	}
 
@@ -95,7 +93,7 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 					name="label"
 					value={label}
 					onChange={(e) => setLabel(e.target.value)}
-					maxLength={255}
+					maxLength={30}
 					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
 					autoComplete="off"
 					required
@@ -126,19 +124,13 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 						}
 						style={{
 							opacity: status.loading ? 0.5 : 1,
-							backgroundColor: status.success
-								? '#22c55e'
-								: status.error
-								? '#ef4444'
-								: ''
+							backgroundColor: status.error ? '#ef4444' : ''
 						}}
 					>
 						{status.loading
 							? 'Loading...'
 							: status.error
 							? 'Failed!'
-							: status.success
-							? 'Done!'
 							: 'Add'}
 					</Button>
 				</DialogFooter>
