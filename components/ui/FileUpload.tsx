@@ -126,11 +126,11 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 						}
 						style={{
 							opacity: status.loading ? 0.5 : 1,
-							backgroundColor: status.error
-								? '#ef4444'
-								: status.success
+							backgroundColor: status.success
 								? '#22c55e'
-								: undefined
+								: status.error
+								? '#ef4444'
+								: ''
 						}}
 					>
 						{status.loading
