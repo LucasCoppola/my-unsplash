@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useState } from 'react'
+import { useState } from 'react'
 import { Trash } from 'lucide-react'
 import Image from 'next/image'
 import { deleteImageAction } from '@/app/_actions'
@@ -16,6 +16,7 @@ import {
 	AlertDialogTrigger
 } from '@/components/ui/shadcn/alert-dialog'
 import { useToast } from './shadcn/use-toast'
+import { Copy } from './icons'
 
 type ImageComponentProps = { label?: string; src: string; id: string }
 
@@ -63,8 +64,21 @@ export default function ImageComponent({
 			/>
 			{isHovered && (
 				<>
+					<Copy
+						onClick={() => {
+							navigator.clipboard.writeText(src)
+							toast({
+								description: 'Copied To Clipboard!',
+								className: 'bg-[#18181b] text-[#FAFAFA]'
+							})
+						}}
+						className="absolute right-14 top-5 cursor-pointer text-gray-300"
+					/>
 					<AlertDialog>
-						<AlertDialogTrigger className="absolute right-5 top-5 cursor-pointer text-red-600">
+						<AlertDialogTrigger
+							title="Delete Image"
+							className="absolute right-5 top-5 cursor-pointer text-red-600"
+						>
 							<Trash />
 						</AlertDialogTrigger>
 						<AlertDialogContent>

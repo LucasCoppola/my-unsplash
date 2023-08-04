@@ -29,9 +29,9 @@ export default async function Home() {
 							<br />
 							Unleash Your Creativity!
 						</h1>
-						<p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-							Create Your Stunning Gallery Today - Upload,
-							Organize, and Share Your Photos with Ease!
+						<p className="mx-auto mt-6 max-w-lg text-lg leading-8 text-gray-600">
+							Create Your Stunning Gallery Today - Upload and
+							Share Your Photos!
 						</p>
 						<div className="mt-10 flex items-center justify-center gap-x-6">
 							{session ? (
