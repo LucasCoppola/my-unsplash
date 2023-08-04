@@ -13,7 +13,7 @@ datasource db {
 model Image {
   id     String @id @default(cuid())
   src    String @db.VarChar(512)
-  label  String @db.VarChar(255)
+  label  String? @db.VarChar(30)
   userId String
   user   User   @relation(fields: [userId], references: [id])
 }

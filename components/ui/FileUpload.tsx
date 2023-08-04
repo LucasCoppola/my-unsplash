@@ -96,7 +96,6 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 					maxLength={30}
 					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200"
 					autoComplete="off"
-					required
 				/>
 			</div>
 			<div {...getRootProps()}>
