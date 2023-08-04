@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { use, useState } from 'react'
 import { Trash } from 'lucide-react'
 import Image from 'next/image'
 import { deleteImageAction } from '@/app/_actions'
@@ -15,6 +15,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger
 } from '@/components/ui/shadcn/alert-dialog'
+import { useToast } from './shadcn/use-toast'
 
 type ImageComponentProps = { label?: string; src: string; id: string }
 
@@ -23,11 +24,30 @@ export default function ImageComponent({
 	src,
 	id
 }: ImageComponentProps) {
+	const { toast } = useToast()
 	const [isHovered, setIsHovered] = useState(false)
+
+	const handleDeleteImage = async () => {
+		const isDeleted = await deleteImageAction(id, src)
+
+		if (isDeleted) {
+			toast({
+				title: 'Image Deleted',
+				description: 'The image has been successfully deleted.',
+				className: 'bg-red-500 text-white'
+			})
+		} else {
+			toast({
+				title: 'Error',
+				description: 'Failed to delete the image.',
+				className: 'bg-red-500 text-white'
+			})
+		}
+	}
 
 	return (
 		<div
-			className="group relative transition duration-200 hover:scale-[1.02]"
+			className="group relative rounded-2xl shadow-md transition duration-200 hover:scale-[1.01] hover:shadow-xl"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
@@ -62,7 +82,7 @@ export default function ImageComponent({
 								<AlertDialogCancel>Cancel</AlertDialogCancel>
 								<AlertDialogAction
 									className="bg-red-200 font-semibold text-red-600 hover:bg-red-300"
-									onClick={() => deleteImageAction(id, src)}
+									onClick={handleDeleteImage}
 								>
 									Yes
 								</AlertDialogAction>

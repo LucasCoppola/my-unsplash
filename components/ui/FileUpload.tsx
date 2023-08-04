@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { Dialog, DialogFooter } from './shadcn/dialog'
 import { useToast } from './shadcn/use-toast'
@@ -54,22 +53,19 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 			body: formData
 		}).then((res) => res.json())
 
-		if (data.error) {
+		if (data.error || !data) {
 			setStatus({ ...status, loading: false, error: true })
 			return
 		}
 
-		if (data) {
-			setStatus({ ...status, loading: false, success: true })
-		}
-
-		setOpen(false)
 		await postImageAction({
 			label: label,
 			src: data.secure_url,
 			id: data.asset_id,
 			userId: session?.userId || ''
 		})
+		setStatus({ ...status, loading: false, success: true })
+		setOpen(false)
 	}
 
 	// Revoke object URL when the component unmounts to avoid memory leaks
@@ -184,11 +180,7 @@ export function FormButton({ status }: { status: statusTypes }) {
 			disabled={status.loading || status.error || status.success}
 			style={{
 				opacity: status.loading ? 0.5 : 1,
-				backgroundColor: status.error
-					? '#ef4444'
-					: status.success
-					? '#22c55e'
-					: ''
+				backgroundColor: status.error ? '#ef4444' : ''
 			}}
 		>
 			{status.loading ? 'Loading...' : status.error ? 'Failed!' : 'Add'}
