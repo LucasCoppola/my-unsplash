@@ -63,13 +63,13 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 			setStatus({ ...status, loading: false, success: true })
 		}
 
+		setOpen(false)
 		await postImageAction({
 			label: label,
 			src: data.secure_url,
 			id: data.asset_id,
 			userId: session?.userId || ''
 		})
-		setOpen(false)
 	}
 
 	// Revoke object URL when the component unmounts to avoid memory leaks
@@ -162,23 +162,24 @@ export function Dropzone({ children }: { children: React.ReactNode }) {
 export function FormButton({ status }: { status: statusTypes }) {
 	const { toast } = useToast()
 
-	// if (status.success) {
-	// 	return toast({
-	// 		title: 'Success',
-	// 		description: 'Image uploaded successfully',
-	// 		className: 'bg-green-500 text-white'
-	// 	})
-	// } else if (status.error) {
-	// 	return toast({
-	// 		title: 'Error',
-	// 		description: 'Failed to upload image',
-	// 		className: 'bg-red-500 text-white'
-	// 	})
-	// }
+	useEffect(() => {
+		if (status.success) {
+			toast({
+				title: 'Success',
+				description: 'Image uploaded successfully',
+				className: 'bg-green-500 text-white'
+			})
+		} else if (status.error) {
+			toast({
+				title: 'Error',
+				description: 'Something went wrong',
+				className: 'bg-red-500 text-white'
+			})
+		}
+	}, [status.success, status.error, toast])
 
 	return (
 		<Button
-			// onClick={}
 			type="submit"
 			disabled={status.loading || status.error || status.success}
 			style={{
@@ -190,15 +191,7 @@ export function FormButton({ status }: { status: statusTypes }) {
 					: ''
 			}}
 		>
-			{status.loading ? (
-				'Loading...'
-			) : status.error ? (
-				'Failed!'
-			) : status.success ? (
-				<Check />
-			) : (
-				'Add'
-			)}
+			{status.loading ? 'Loading...' : status.error ? 'Failed!' : 'Add'}
 		</Button>
 	)
 }
