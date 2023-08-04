@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { Dialog, DialogFooter } from './shadcn/dialog'
+import { useToast } from './shadcn/use-toast'
 import { Button } from './shadcn/button'
 import { postImageAction } from '@/app/_actions'
 import { useSession } from 'next-auth/react'
@@ -35,8 +37,8 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		setStatus({ ...status, loading: true })
 		if (!file) return
+		setStatus({ ...status, loading: true })
 
 		const formData = new FormData()
 		formData.append('file', file)
@@ -116,22 +118,7 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 			</div>
 			<Dialog>
 				<DialogFooter className="flex-row">
-					<Button
-						type="submit"
-						disabled={
-							status.loading || status.error || status.success
-						}
-						style={{
-							opacity: status.loading ? 0.5 : 1,
-							backgroundColor: status.error ? '#ef4444' : ''
-						}}
-					>
-						{status.loading
-							? 'Loading...'
-							: status.error
-							? 'Failed!'
-							: 'Add'}
-					</Button>
+					<FormButton status={status} />
 				</DialogFooter>
 			</Dialog>
 		</form>
@@ -169,5 +156,49 @@ export function Dropzone({ children }: { children: React.ReactNode }) {
 				{children}
 			</label>
 		</div>
+	)
+}
+
+export function FormButton({ status }: { status: statusTypes }) {
+	const { toast } = useToast()
+
+	// if (status.success) {
+	// 	return toast({
+	// 		title: 'Success',
+	// 		description: 'Image uploaded successfully',
+	// 		className: 'bg-green-500 text-white'
+	// 	})
+	// } else if (status.error) {
+	// 	return toast({
+	// 		title: 'Error',
+	// 		description: 'Failed to upload image',
+	// 		className: 'bg-red-500 text-white'
+	// 	})
+	// }
+
+	return (
+		<Button
+			// onClick={}
+			type="submit"
+			disabled={status.loading || status.error || status.success}
+			style={{
+				opacity: status.loading ? 0.5 : 1,
+				backgroundColor: status.error
+					? '#ef4444'
+					: status.success
+					? '#22c55e'
+					: ''
+			}}
+		>
+			{status.loading ? (
+				'Loading...'
+			) : status.error ? (
+				'Failed!'
+			) : status.success ? (
+				<Check />
+			) : (
+				'Add'
+			)}
+		</Button>
 	)
 }
