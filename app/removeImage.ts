@@ -26,7 +26,6 @@ export const deleteImageFromCloudinary = (src: string) => {
 		api_key: process.env.CLOUDINARY_API_KEY as string,
 		api_secret: process.env.CLOUDINARY_API_SECRET as string
 	})
-	console.log('Deleting image from Cloudinary...', match)
 
 	cloudinary.uploader
 		.destroy(match)

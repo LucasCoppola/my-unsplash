@@ -1,4 +1,5 @@
 import ImageComponent from '@/components/ui/ImageComp'
+import { Toaster } from '@/components/ui/shadcn/toaster'
 import { authOptions } from '@/utils/authOptions'
 import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
@@ -21,7 +22,7 @@ export default async function Dashboard() {
 						<ImageComponent
 							key={id}
 							src={src}
-							label={label}
+							label={label || ''}
 							id={id}
 						/>
 					))}
@@ -35,6 +36,7 @@ export default async function Dashboard() {
 					className="m-auto"
 				/>
 			)}
+			<Toaster />
 		</main>
 	)
 }

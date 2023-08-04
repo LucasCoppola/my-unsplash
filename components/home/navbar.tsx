@@ -1,6 +1,6 @@
 'use client'
 
-import { Search, MyUnsplashLogo, Camera } from '@/components/ui/icons'
+import { Search, MyUnsplashLogo } from '@/components/ui/icons'
 import UserDropdown from '../ui/user-dropdown'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'

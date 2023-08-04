@@ -16,7 +16,7 @@ import {
 	AlertDialogTrigger
 } from '@/components/ui/shadcn/alert-dialog'
 
-type ImageComponentProps = { label: string; src: string; id: string }
+type ImageComponentProps = { label?: string; src: string; id: string }
 
 export default function ImageComponent({
 	label,
@@ -27,19 +27,19 @@ export default function ImageComponent({
 
 	return (
 		<div
-			className="group relative transition duration-200"
+			className="group relative transition duration-200 hover:scale-[1.02]"
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			<Image
 				key={id}
 				className={`mb-6 rounded-2xl ease-in-out ${
-					isHovered ? 'brightness-50' : ''
+					isHovered ? 'brightness-50 transition duration-200' : ''
 				}`}
 				src={src}
 				width={400}
 				height={400}
-				alt={label}
+				alt={label || 'image preview'}
 			/>
 			{isHovered && (
 				<>
