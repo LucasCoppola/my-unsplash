@@ -33,6 +33,11 @@ export const deleteImageFromCloudinary = (src: string) => {
 			console.log('Image deleted successfully:', result)
 		})
 		.catch((error) => {
+			console.error(
+				'Cloudinary Error Details:',
+				error.message,
+				error.response?.data
+			)
 			console.error('Error deleting image:', error)
 		})
 }
