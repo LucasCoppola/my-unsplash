@@ -22,7 +22,7 @@ export const deleteImageFromCloudinary = (src: string) => {
 	}
 
 	cloudinary.config({
-		cloud_name: process.env.CLOUDINARY_CLOUD_NAME as string,
+		cloud_name: 'dotpfjpno',
 		api_key: process.env.CLOUDINARY_API_KEY as string,
 		api_secret: process.env.CLOUDINARY_API_SECRET as string
 	})
