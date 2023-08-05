@@ -1,8 +1,12 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { ImageType, deleteImage, postImage } from './server'
+import { ImageType, deleteImage, getImages, postImage } from './server'
 import { deleteImageFromCloudinary } from './removeImage'
+
+export async function getImagesAction({ userId }: { userId: string }) {
+	return await getImages({ userId })
+}
 
 export async function postImageAction({ src, label, userId, id }: ImageType) {
 	await postImage({ src, label, userId, id })
