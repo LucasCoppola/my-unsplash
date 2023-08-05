@@ -14,7 +14,7 @@ const extractFolderAndPublicId = (url: string) => {
 	}
 }
 
-export const deleteImageFromCloudinary = async (src: string) => {
+export const deleteImageFromCloudinary = (src: string) => {
 	const match = extractFolderAndPublicId(src)
 	if (!match) {
 		console.error('There is not a match')
@@ -27,14 +27,12 @@ export const deleteImageFromCloudinary = async (src: string) => {
 		api_secret: process.env.CLOUDINARY_API_SECRET as string
 	})
 
-	try {
-		const result = await cloudinary.uploader.destroy(match)
-		console.log('Image deleted successfully:', result)
-	} catch (error) {
-		if (error instanceof Error) {
+	cloudinary.uploader
+		.destroy(match)
+		.then((result) => {
+			console.log('Image deleted successfully:', result)
+		})
+		.catch((error) => {
 			console.error('Error deleting image:', error)
-			// Add more detailed error logging here
-			console.error('Cloudinary Error Details:', error.message)
-		}
-	}
+		})
 }

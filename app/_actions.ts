@@ -12,7 +12,7 @@ export async function postImageAction({ src, label, userId, id }: ImageType) {
 
 export async function deleteImageAction(id: string, src: string) {
 	try {
-		await deleteImageFromCloudinary(src)
+		deleteImageFromCloudinary(src)
 		await deleteImage({ id })
 		revalidatePath('/dashboard')
 		return true
