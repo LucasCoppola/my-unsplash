@@ -39,7 +39,8 @@ export default function ImageComponent({
 			toast({
 				title: 'Image Deleted',
 				description: 'The image has been successfully deleted.',
-				className: 'bg-red-500 text-white'
+				className: 'bg-red-500 text-white',
+				duration: 3000
 			})
 		} else {
 			toast({
@@ -73,7 +74,8 @@ export default function ImageComponent({
 							navigator.clipboard.writeText(src)
 							toast({
 								description: 'Copied To Clipboard!',
-								className: 'bg-[#18181b] text-[#FAFAFA]'
+								className: 'bg-[#18181b] text-[#FAFAFA]',
+								duration: 3000
 							})
 						}}
 						className="absolute right-14 top-5 cursor-pointer text-gray-300"
