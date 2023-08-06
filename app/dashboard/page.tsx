@@ -6,19 +6,34 @@ import { redirect } from 'next/navigation'
 import { getImages } from '../server'
 import Image from 'next/image'
 
-export default async function Dashboard() {
+export default async function Dashboard({
+	searchParams
+}: {
+	searchParams: { search: string }
+}) {
 	const session = await getServerSession(authOptions)
 	const userId = session?.userId || ''
 	const { images } = await getImages({ userId })
+	const searchValue = searchParams.search
+	let renderImages = images
+
 	if (!session) {
 		redirect('/')
 	}
 
+	if (searchValue) {
+		const filtered = images?.filter((image) => {
+			if (!image.label) return
+			return image.label.toLowerCase().includes(searchValue.toLowerCase())
+		})
+		renderImages = filtered
+	}
+
 	return (
 		<main className="mt-8 flex flex-col items-center justify-between p-6">
-			{images?.length ? (
+			{renderImages?.length ? (
 				<div className="columns-auto gap-6 md:columns-3">
-					{images?.map(({ src, id, label }) => (
+					{renderImages?.map(({ src, id, label }) => (
 						<ImageComponent
 							key={id}
 							src={src}
