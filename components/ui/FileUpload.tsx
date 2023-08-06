@@ -143,7 +143,8 @@ export function FormButton({ status }: { status: statusTypes }) {
 			toast({
 				title: 'Success',
 				description: 'Image uploaded successfully',
-				className: 'bg-green-500 text-white'
+				className: 'bg-green-500 text-white',
+				duration: 3000
 			})
 		} else if (status.error) {
 			toast({
