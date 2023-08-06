@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma'
 export type ImageType = {
 	id: string
 	src: string
-	label: string
+	label?: string
 	userId: string
 }
 
