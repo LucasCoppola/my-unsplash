@@ -33,7 +33,7 @@
 
 ![screenshot](https://res.cloudinary.com/dotpfjpno/image/upload/v1691339890/Captura_de_pantalla_2023-08-06_133733_gg4j47.png)
 
-You can check out this project at [my-unsplash-lc.vercel.app](https://my-unsplash-lc.vercel.app/), I did this project with the goal of learn more about next.js, prisma, auth.js, in between others
+You can check out this project at [my-unsplash-lc.vercel.app](https://my-unsplash-lc.vercel.app/), I made this project with the goal of learning more about next.js, prisma, auth.js, among others
 
 ### Built With
 
