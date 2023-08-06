@@ -18,7 +18,11 @@ import {
 import { useToast } from './shadcn/use-toast'
 import { Copy } from './icons'
 
-type ImageComponentProps = { label?: string; src: string; id: string }
+type ImageComponentProps = {
+	label?: string
+	src: string
+	id: string
+}
 
 export default function ImageComponent({
 	label,

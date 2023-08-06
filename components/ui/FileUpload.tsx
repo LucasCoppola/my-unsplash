@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Dialog, DialogFooter } from './shadcn/dialog'
 import { useToast } from './shadcn/use-toast'
 import { Button } from './shadcn/button'
-import { postImageAction } from '@/app/_actions'
+import { getImagesAction, postImageAction } from '@/app/_actions'
 import { useSession } from 'next-auth/react'
 
 type statusTypes = {
@@ -15,6 +15,7 @@ type statusTypes = {
 
 export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 	const { data: session } = useSession()
+	const { toast } = useToast()
 	const [file, setFile] = useState<File | null>(null)
 	const [label, setLabel] = useState('')
 	const [status, setStatus] = useState<statusTypes>({
@@ -55,6 +56,19 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 
 		if (data.error || !data) {
 			setStatus({ ...status, loading: false, error: true })
+			return
+		}
+
+		const { images } = await getImagesAction({
+			userId: session?.userId || ''
+		})
+		if (images && images.length >= 25) {
+			setStatus({ ...status, loading: false, error: true })
+			toast({
+				title: 'You have reached the limit of images',
+				description: 'You can only upload 25 images',
+				className: 'bg-[#18181b] text-[#FAFAFA]'
+			})
 			return
 		}
 
@@ -121,6 +135,39 @@ export function FileUpload({ setOpen }: { setOpen: (open: boolean) => void }) {
 	)
 }
 
+export function FormButton({ status }: { status: statusTypes }) {
+	const { toast } = useToast()
+
+	useEffect(() => {
+		if (status.success) {
+			toast({
+				title: 'Success',
+				description: 'Image uploaded successfully',
+				className: 'bg-green-500 text-white'
+			})
+		} else if (status.error) {
+			toast({
+				title: 'Error',
+				description: 'Something went wrong',
+				className: 'bg-red-500 text-white'
+			})
+		}
+	}, [status.success, status.error, toast])
+
+	return (
+		<Button
+			type="submit"
+			disabled={status.loading || status.error || status.success}
+			style={{
+				opacity: status.loading ? 0.5 : 1,
+				backgroundColor: status.error ? '#ef4444' : ''
+			}}
+		>
+			{status.loading ? 'Loading...' : status.error ? 'Failed!' : 'Add'}
+		</Button>
+	)
+}
+
 export function Dropzone({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="flex w-full items-center justify-center">
@@ -152,39 +199,5 @@ export function Dropzone({ children }: { children: React.ReactNode }) {
 				{children}
 			</label>
 		</div>
-	)
-}
-
-export function FormButton({ status }: { status: statusTypes }) {
-	const { toast } = useToast()
-
-	useEffect(() => {
-		if (status.success) {
-			toast({
-				title: 'Success',
-				description: 'Image uploaded successfully',
-				className: 'bg-green-500 text-white',
-				duration: 3000
-			})
-		} else if (status.error) {
-			toast({
-				title: 'Error',
-				description: 'Something went wrong',
-				className: 'bg-red-500 text-white'
-			})
-		}
-	}, [status.success, status.error, toast])
-
-	return (
-		<Button
-			type="submit"
-			disabled={status.loading || status.error || status.success}
-			style={{
-				opacity: status.loading ? 0.5 : 1,
-				backgroundColor: status.error ? '#ef4444' : ''
-			}}
-		>
-			{status.loading ? 'Loading...' : status.error ? 'Failed!' : 'Add'}
-		</Button>
 	)
 }
