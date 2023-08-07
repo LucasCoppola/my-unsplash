@@ -16,24 +16,17 @@
   </h3>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-
-## Table of Contents
-
--   [Overview](#overview)
-    -   [Built With](#built-with)
--   [Features](#features)
--   [How to use](#how-to-use)
--   [Contact](#contact)
--   [Acknowledgements](#acknowledgements)
-
 <!-- OVERVIEW -->
 
 ## Overview
 
 ![screenshot](https://res.cloudinary.com/dotpfjpno/image/upload/v1691339890/Captura_de_pantalla_2023-08-06_133733_gg4j47.png)
 
-You can check out this project at [my-unsplash-lc.vercel.app](https://my-unsplash-lc.vercel.app/), I did this project with the goal of learn more about next.js, prisma, auth.js, in between others
+I created this project with the aim of expanding my knowledge in Next.js, Prisma, and Authentication.
+
+During the process, I also learned about server components and server actions. Initially, I tried using Clerk for authentication, but faced difficulties deploying it without a custom domain.
+
+As a result, I switched to Auth.js, which was more complex to set up since Clerk already provided built-in components. But i had fun building it, and learned a lot.
 
 ### Built With
 
@@ -55,9 +48,12 @@ You can check out this project at [my-unsplash-lc.vercel.app](https://my-unsplas
 
 ## Features
 
-<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
-
-This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP) was to build an application to complete the given user stories.
+-   Log-in/out or account-based access for secure user authentication.
+-   Easily upload images through drag & drop or by clicking the upload button.
+-   Add a custom label to each image.
+-   Delete images when they are no longer needed, ensuring a clutter-free gallery.
+-   Conveniently copy the image URL to share it wherever you desire.
+-   Efficiently search for specific images based on their assigned labels, making it easy to find exactly what you need.
 
 ## How To Use
 
