@@ -196,6 +196,9 @@ export function Dropzone({ children }: { children: React.ReactNode }) {
 						<span className="font-semibold">Click to upload</span>{' '}
 						or drag and drop
 					</p>
+					<p className="mb-2 text-sm text-gray-500">
+						Max file size: 10 MB
+					</p>
 				</div>
 				{children}
 			</label>

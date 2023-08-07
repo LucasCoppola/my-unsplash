@@ -27,13 +27,13 @@ export default function Navbar() {
 		}
 	}, [searchParams])
 
-	useEffect(() => {
+	const handleSearch = () => {
 		if (searchValue.length > 0) {
 			router.push(`/dashboard?search=${encodeURIComponent(searchValue)}`)
 		} else {
 			router.push('/dashboard')
 		}
-	}, [searchValue, router])
+	}
 
 	return (
 		<nav className="relative z-10">
@@ -58,6 +58,12 @@ export default function Navbar() {
 											onChange={(e) =>
 												setSearchValue(e.target.value)
 											}
+											onBlur={handleSearch}
+											onKeyPress={(e) => {
+												if (e.key === 'Enter') {
+													handleSearch()
+												}
+											}}
 										/>
 									</div>
 								</div>
