@@ -20,7 +20,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={montserrat.className}>
 				<Provider>
-					<div className="mx-10 mt-4">
+					<div className="mt-4 md:mx-10">
 						<Navbar />
 						{children}
 					</div>
